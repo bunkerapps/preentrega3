@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Small Business - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href={% static "img/favicon.svg" %} />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href={% static "css/styles.css" %} rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Responsive navbar-->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container px-5">
+                <a class="navbar-brand" href="#!">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#!">Services</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Page Content-->
+        <div class="container px-4 px-lg-5">
+            <!-- Heading Row-->
+            <div class="row gx-4 gx-lg-5 align-items-center my-5">
+                <div class="col-lg-7"><img class="img-fluid rounded mb-4 mb-lg-0" src={% static "img/foto.jpg" %} alt="..." /></div>
+                <div class="col-lg-5">
+                    <h1 class="font-weight-light"></h1>
+                    {% comment %} este es el formulario de nuevo producto  {% endcomment %}
+                    <div class="button-description">
+                        <h2>Nuevo Producto</h2>
+                        <p style="color: #34495e; font-family: Arial, sans-serif;">
+                            Haz clic para agregar un nuevo producto a la base de datos. Ingresa nombre, descripción, precio y categoría rápidamente.
+                        </p>
+                        <form method="POST" action="{% url 'add_product' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="product_name" class="form-label">Nombre del producto</label>
+                                <input type="text" class="form-control" id="product_name" name="product_name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="product_price" class="form-label">Precio del producto</label>
+                                <input type="number" class="form-control" id="product_price" name="product_price" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Crear</button>
+                        </form>
+                    </div>
+                    {% comment %} este es el formulario de busqueda {% endcomment %}
+                    <div class="button-description">
+                        <h2>Buscar Producto</h2>
+                        <p style="color: #34495e; font-family: Arial, sans-serif;">
+                            Haz clic para buscar productos en nuestra base de datos por nombre, categoría u otros criterios.
+                        </p>
+                    </div>
+                    <form method="GET" action="{% url 'products' %}" name="products">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Nombre del producto</label>
+                            <input type="text" class="form-control" id="description" name="description" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </form>
+                    {% comment %} <a class="btn btn-primary" href="#!">Buscar producto</a> {% endcomment %}
+                </div>
+            </div>
+            {% block products %}
+            {% endblock products %}
+            <!-- Call to Action-->
+            <div class="card text-white bg-secondary my-5 py-4 text-center">
+                <div class="card-body"><p class="text-white m-0">    Bienvenido a nuestro sitio web, su solución integral para la creación de productos y gestión de stock en supermercados. Simplifique sus operaciones, mantenga su inventario al día y asegure una administración eficiente de sus productos con nuestras herramientas avanzadas.</p></div>
+            </div>
+        </div>
+        {% block footer %}
+        {% endblock footer %}
